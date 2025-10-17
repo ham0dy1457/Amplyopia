@@ -11,8 +11,9 @@
 
     if (!video || !startBtn || !distanceStatus || !stageEl || !letterEl) return;
 
-    const idealMin = 2.8; // meters
-    const idealMax = 3.2; // meters
+    // For phone usage distance (arm's length): ~0.30–0.50 m
+    const idealMin = 0.30; // meters
+    const idealMax = 0.50; // meters
     let streamActive = false;
     let testActive = false;
     let model = null;
@@ -42,6 +43,14 @@
         letterEl.style.fontSize = step.px + 'px';
     }
 
+    const readyBadge = document.getElementById('ready-badge');
+    function setReadyState(isReady) {
+        if (!readyBadge) return;
+        readyBadge.textContent = isReady ? 'Ready' : 'Adjust';
+        readyBadge.classList.toggle('ready', isReady);
+        readyBadge.classList.toggle('adjust', !isReady);
+    }
+
     function updateDistanceStatus(distanceMeters) {
         if (!Number.isFinite(distanceMeters)) {
             distanceStatus.textContent = 'Distance: unknown';
@@ -50,6 +59,7 @@
         distanceStatus.textContent = `Distance: ${distanceMeters.toFixed(2)} m`;
         if (distanceMeters < idealMin || distanceMeters > idealMax) {
             warningEl.textContent = 'Please move farther or closer to the screen to start the test.';
+            setReadyState(false);
         } else {
             warningEl.textContent = '';
         }
@@ -165,15 +175,19 @@
                     const looking = estimateGazeForward(face);
                     if (!looking) {
                         warningEl.textContent = 'Please face the camera for accurate results.';
+                        setReadyState(false);
                     } else {
                         // Clear warning only if distance is also OK
                         const text = distanceStatus.textContent || '';
                         const match = text.match(/([0-9]+\.[0-9]+)/);
                         const dist = match ? parseFloat(match[1]) : NaN;
-                        if (dist >= idealMin && dist <= idealMax) warningEl.textContent = '';
+                        const ok = dist >= idealMin && dist <= idealMax;
+                        if (ok) warningEl.textContent = '';
+                        setReadyState(ok);
                     }
                 } else {
                     warningEl.textContent = 'Face not detected. Make sure your face is visible.';
+                    setReadyState(false);
                 }
             } catch (_) {}
             requestAnimationFrame(step);
@@ -195,7 +209,8 @@
         const text = distanceStatus.textContent || '';
         const match = text.match(/([0-9]+\.[0-9]+)/);
         const dist = match ? parseFloat(match[1]) : NaN;
-        if (!(dist >= idealMin && dist <= idealMax)) {
+        const ready = readyBadge && readyBadge.classList.contains('ready');
+        if (!(dist >= idealMin && dist <= idealMax) || !ready) {
             warningEl.textContent = 'Please move farther or closer to the screen to start the test.';
             return;
         }
