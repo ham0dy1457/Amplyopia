@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-page="vision-test">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vision Test • VisionCare</title>
+    <meta name="description" content="Vision test with camera distance check and E orientation.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <button class="back-btn" id="back-btn" aria-label="Go back">←</button>
+            <a class="logo" href="index.html">VisionCare</a>
+        </div>
+    </header>
+
+    <div class="vt-camera" aria-hidden="true">
+        <video id="vt-video" autoplay playsinline muted></video>
+    </div>
+
+    <main class="section">
+        <div class="container">
+            <h1>Vision Test</h1>
+
+            <div class="vt-card">
+                <div class="vt-status">
+                    <span id="distance-status">Checking distance…</span>
+                    <span id="ready-badge" class="badge">Adjust</span>
+                    <button id="toggle-camera" class="btn">Toggle Camera</button>
+                </div>
+
+                <div class="vt-warning" id="vt-warning" role="status" aria-live="polite"></div>
+
+                <div class="vt-stage" id="vt-stage">
+                    <div class="dual-symbols">
+                        <div class="symbol-container left-eye">
+                            <div id="vt-letter-left" class="vt-letter" aria-hidden="true">C</div>
+                            <div class="eye-label">Left Eye</div>
+                        </div>
+                        <div class="symbol-container right-eye">
+                            <div id="vt-letter-right" class="vt-letter" aria-hidden="true">C</div>
+                            <div class="eye-label">Right Eye</div>
+                        </div>
+                    </div>
+                    <div class="vt-controls">
+                        <button class="btn" data-dir="up">↑</button>
+                        <button class="btn" data-dir="down">↓</button>
+                        <button class="btn" data-dir="left">←</button>
+                        <button class="btn" data-dir="right">→</button>
+                    </div>
+                </div>
+
+                <div class="vt-actions">
+                    <button id="vt-start" class="btn primary" disabled>Start Test</button>
+                    <button id="vt-retry" class="btn" hidden>Retake</button>
+                </div>
+
+                <div class="vt-result" id="vt-result" hidden>
+                    <div class="result-summary" id="result-summary"></div>
+                    <div class="results-table-container" id="results-table-container" hidden>
+                        <h3>Vision Test Report</h3>
+                        <div class="test-info">
+                            <span id="test-date"></span>
+                            <span id="test-time"></span>
+                        </div>
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Right Eye</th>
+                                    <th>Left Eye</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Distance (m)</td>
+                                    <td id="right-distance">-</td>
+                                    <td id="left-distance">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Lighting Quality (%)</td>
+                                    <td id="right-lighting">-</td>
+                                    <td id="left-lighting">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Visual Acuity (LogMAR)</td>
+                                    <td id="right-logmar">-</td>
+                                    <td id="left-logmar">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Contrast Sensitivity (%)</td>
+                                    <td id="right-contrast">-</td>
+                                    <td id="left-contrast">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Eye Tracking Reliability (%)</td>
+                                    <td id="right-tracking">-</td>
+                                    <td id="left-tracking">-</td>
+                                </tr>
+                                <tr class="overall-result">
+                                    <td><strong>Overall Result</strong></td>
+                                    <td id="right-overall">-</td>
+                                    <td id="left-overall">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="year"></span> VisionCare</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webrtc-adapter/9.0.1/adapter.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0/dist/tf.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-landmarks-detection@1.0.5/dist/face-landmarks-detection.min.js" crossorigin="anonymous"></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/vision.js" defer></script>
+</body>
+</html>
+

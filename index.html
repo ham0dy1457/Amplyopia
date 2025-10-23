@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WebApp Starter</title>
+    <meta name="description" content="A minimal HTML/CSS/JS starter web app.">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="logo" href="#">amplyopia</a>
+            <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">
+                <span class="sr-only">Toggle menu</span>
+                ☰
+            </button>
+            <nav id="site-nav" class="site-nav" aria-label="Primary">
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="landing">
+        <div class="container landing-inner">
+            <div class="brand">
+                <div class="logo-mark" aria-hidden="true">👁️</div>
+                <div class="logo-name">VisionCare</div>
+            </div>
+
+            <div class="options-grid">
+                <button class="option-card" id="opt-lazy-eye">
+                    <span class="option-emoji" aria-hidden="true">🧸</span>
+                    <span class="option-title">Lazy Eye</span>
+                </button>
+                <button class="option-card" id="opt-vision-test">
+                    <span class="option-emoji" aria-hidden="true">🔎</span>
+                    <span class="option-title">Vision Test</span>
+                </button>
+                <button class="option-card" id="opt-guidelines">
+                    <span class="option-emoji" aria-hidden="true">📘</span>
+                    <span class="option-title">Guidelines</span>
+                </button>
+                <button class="option-card" id="opt-report">
+                    <span class="option-emoji" aria-hidden="true">📊</span>
+                    <span class="option-title">Report</span>
+                </button>
+            </div>
+
+            
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>© <span id="year"></span> Amplyopia</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js" defer></script>
+</body>
+</html>
+
