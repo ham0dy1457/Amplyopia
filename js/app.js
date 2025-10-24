@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Mobile landing option handlers
     const routes = {
-        'opt-lazy-eye': () => alert('Lazy Eye selected'),
+        'opt-lazy-eye': () => window.location.href = 'https://color-vision-game2.netlify.app/',
         'opt-vision-test': () => { window.location.href = 'vision-test.html'; },
         'opt-guidelines': () => { window.location.href = 'guidelines.html'; },
         'opt-report': () => alert('Report selected')
@@ -28,4 +28,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Remove old demo form behavior if form isn't present
 });
+
 
